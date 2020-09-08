@@ -1,0 +1,52 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production sucrase-node ./src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
+    "pretest": "cross-env NODE_ENV=test yarn run sequelize db:migrate",
+    "test": "cross-env NODE_ENV=test jest --verbose",
+    "posttest": "cross-env NODE_ENV=test yarn run sequelize db:migrate:undo:all",
+    "init": "docker-compose up -d && yarn install && yarn dev",
+    "migrate": "cross-env NODE_ENV=development yarn sequelize db:migrate"
+  },
+  "dependencies": {
+    "@sucrase/jest-plugin": "^2.0.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "date-fns": "^2.16.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^4.1.0",
+    "mongoose": "^5.10.3",
+    "morgan": "^1.10.0",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
+    "socket.io": "^2.3.0",
+    "spdy": "^4.0.2",
+    "sqlite3": "^5.0.0",
+    "sucrase": "^3.15.0",
+    "swagger-ui-express": "^4.1.4",
+    "websocket": "^1.0.32",
+    "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.13",
+    "editorconfig": "^0.15.3",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.1",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^4.0.2",
+    "uuid": "^8.3.0"
+  }
+}
