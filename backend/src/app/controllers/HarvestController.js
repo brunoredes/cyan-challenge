@@ -1,28 +1,15 @@
 import { isBefore, parseISO } from 'date-fns';
 import Harvest from '../models/Harvest';
-import Mill from '../models/Mill';
 
 class HarvestController {
   async createHarvest(request, response) {
     const { id, startDate, endDate } = request.body;
+    const mills_id = request.headers.authorization;
 
-    if (request.headers.authorization) {
-      const mill = await Harvest.findOne({
-        where: { mills_id: request.headers.authorization },
-        // include: [
-        //   {
-        //     association: Mill,
-        //     as: 'mill',
-        //     foreignKey: 'id',
-        //   },
-        // ],
-      });
-
-      if (!mill) {
-        return response
-          .status(404)
-          .json({ error: 'Mill not found with this ID' });
-      }
+    if (!mills_id || mills_id === (null || '')) {
+      return response
+        .status(404)
+        .json({ error: 'Mill not found with this ID' });
     }
 
     const startDateParsed = parseISO(new Date(startDate));
@@ -34,28 +21,32 @@ class HarvestController {
         .json({ error: 'Past dates are not permited.' });
     }
 
-    // const harvest = await Harvest.findOne({
-    //   where: { mills_id: mill },
-    //   include: [
-    //     {
-    //       // model: Mill,
-    //       association: Mill,
-    //       as: 'mill',
-    //       attributes: ['id'],
-    //     },
-    //   ],
-    // });
-
-    // console.error(harvest);
-
     const createHarvest = await Harvest.create({
       id,
-      startDate,
-      endDate,
-      mills_id: request.headers.authorization,
+      startDateParsed,
+      endDateParsed,
+      mills_id,
     });
 
     return response.status(201).json(createHarvest);
+  }
+
+  async index(request, response) {
+    const { page = 1 } = request.query;
+
+    const count = await Harvest.count({
+      where: { mills_id: request.headers.authorization },
+    });
+
+    const harvest = await Harvest.findAll({
+      where: { mills_id: request.headers.authorization },
+      offset: (page - 1) * 5,
+      limit: 5,
+    });
+
+    response.header('X-Total-Count', count);
+
+    return response.json(harvest);
   }
 }
 

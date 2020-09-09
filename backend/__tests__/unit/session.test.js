@@ -9,6 +9,7 @@ describe('Session endpoint', () => {
     });
 
     const millId = newMill.body.id;
+    console.log(newMill.body);
 
     const response = await request(server).post('/login').send({
       id: millId,

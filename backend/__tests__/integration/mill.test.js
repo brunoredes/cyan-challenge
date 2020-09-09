@@ -1,8 +1,13 @@
 /* eslint-disable prettier/prettier */
 import request from 'supertest';
 import server from '../../src/app';
+import truncate from '../util/truncate';
 
 describe('Mill Endpoints', () => {
+
+  afterAll(async () => {
+    await truncate();
+  })
 
   it('should be able to create a new mill', async () => {
     const response = await request(server)

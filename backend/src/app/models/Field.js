@@ -2,7 +2,7 @@ import { Model, GEOMETRY, DataTypes, UUIDV4 } from 'sequelize';
 
 class Field extends Model {
   static init(sequelize) {
-    this.init(
+    super.init(
       {
         id: {
           type: DataTypes.UUID,

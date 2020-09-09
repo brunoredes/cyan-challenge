@@ -1,14 +1,16 @@
-import 'dotenv/config';
+import './bootstrap';
 import 'express-async-errors';
 import './database';
 
 import express from 'express';
+import * as Sentry from '@sentry/node';
 import logger from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import swaggerUi from 'swagger-ui-express';
 
 import routes from './routes';
+import sentryConfig from './config/sentry';
 
 import { swaggerDoc } from '../documentation/index';
 
@@ -16,6 +18,7 @@ class App {
   constructor() {
     this.server = express();
 
+    Sentry.init(sentryConfig);
     this.middlewares();
     this.routes();
     this.logs();
@@ -23,9 +26,10 @@ class App {
   }
 
   middlewares() {
+    this.server.use(Sentry.Handlers.requestHandler());
+    this.server.use(express.json());
     this.server.use(cors());
     this.server.use(helmet());
-    this.server.use(express.json());
   }
 
   logs() {
@@ -38,6 +42,7 @@ class App {
 
   routes() {
     this.server.use(routes);
+    this.server.use(Sentry.Handlers.errorHandler());
   }
 
   docs() {
