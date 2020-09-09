@@ -12,6 +12,7 @@ Cyan farm uses the following techs:
 * [React](https://pt-br.reactjs.org/) - A JavaScript library for building user interfaces.
 * BRModelo - Database modeling software
 * [Express](https://expressjs.com/pt-br/) - fast node.js network app framework [@tjholowaychuk]
+* [Sentry](https://sentry.io/welcome) - Sentry's application monitoring platform helps every developer diagnose, fix, and optimize the performance of their code.
 * [Jest](https://jestjs.io/) - Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
 * [Supertest](https://www.npmjs.com/package/supertest) - The motivation with this module is to provide a high-level abstraction for testing HTTP, while still allowing you to drop down to the lower-level API provided by superagent.
 * [Socket.io](https://socket.io/) - Socket.IO enables real-time, bidirectional and event-based communication.
