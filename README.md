@@ -1,6 +1,6 @@
 # Cyan Farm
 
-## technical test to Cyan;
+## technical test to [Cyan AgroAnalytics](https://cyan-agro.com/);
 
 
 ### Tech
@@ -27,7 +27,8 @@ It works on every platform, browser or device, focusing equally on reliability a
 
 
 
-## Architeture: MVC
+## Architeture: REST API: MVC
+![image](https://user-images.githubusercontent.com/42386513/92738794-a0458580-f352-11ea-97b9-d7da60d6e335.png)
 ![image](https://user-images.githubusercontent.com/42386513/92611532-4760e900-f28f-11ea-98d8-e276c6c69142.png)
 
 
