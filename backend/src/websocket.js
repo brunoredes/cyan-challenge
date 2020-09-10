@@ -1,24 +1,20 @@
 import socketio from 'socket.io';
 
 let io;
-const connections = [];
 
-export const setupWebSocket = (server) => {
+const setupWebSocket = (server) => {
   io = socketio(server);
 
   io.on('connection', (socket) => {
-    console.log(socket.id);
-    const { latitude, longitude } = socket.handshake.query;
-
-    connections.push({
-      id: socket.id,
-      coordinates: {
-        latitude: Number(latitude),
-        longitude: Number(longitude),
-      },
-    });
+    const broadcast1 = socket.broadcast.emit(
+      'broadcast',
+      'Novo alguma coisa criado'
+    );
+    console.log(broadcast1);
   });
 };
+
+export default setupWebSocket;
 
 // export const findConnections = (coordinates, techs) => {
 //   return connections.filter((connection) => {
@@ -28,9 +24,3 @@ export const setupWebSocket = (server) => {
 //     );
 //   });
 // };
-
-export const sendMessage = (to, message, data) => {
-  to.forEach((connection) => {
-    io.to(connection.id).broadcast(message, data);
-  });
-};

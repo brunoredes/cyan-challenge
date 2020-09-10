@@ -3,7 +3,7 @@ import { createServer } from 'spdy';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import server from './app';
-import { setupWebSocket } from './websocket';
+import setupWebSocket from './websocket';
 
 const options = {
   key: readFileSync(

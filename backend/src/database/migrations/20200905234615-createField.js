@@ -16,8 +16,8 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: true,
       },
-      coords: {
-        type: Sequelize.DataTypes.GEOMETRY('POINT'),
+      coordinates: {
+        type: Sequelize.DataTypes.GEOMETRY('POINT', 4326),
       },
       created_at: {
         type: Sequelize.DATE,

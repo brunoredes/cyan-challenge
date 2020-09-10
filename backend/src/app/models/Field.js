@@ -13,8 +13,16 @@ class Field extends Model {
           },
           allowNull: false,
         },
-        coords: {
-          type: GEOMETRY('POINT'),
+        coordinates: {
+          type: GEOMETRY('POINT', 4326),
+        },
+        farmId: {
+          type: DataTypes.UUID,
+          defaultValue: UUIDV4,
+          references: {
+            model: 'farms',
+            key: 'id',
+          },
         },
       },
       { sequelize }

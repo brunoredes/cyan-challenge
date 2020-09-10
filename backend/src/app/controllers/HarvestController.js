@@ -1,5 +1,4 @@
 import { isBefore, parseISO } from 'date-fns';
-import { Op, where } from 'sequelize';
 import Harvest from '../models/Harvest';
 import Mill from '../models/Mill';
 
@@ -60,23 +59,27 @@ class HarvestController {
   }
 
   async filteredHarvest(request, response) {
+    const { id, startDate, endDate } = request.query;
+
+    const filter = {
+      where: {},
+      treatUndefinedAsNull: false,
+    };
+
+    if (id) {
+      filter.where = { id };
+    }
+
+    if (startDate && endDate) {
+      filter.where = {
+        startDate: `${request.query.startDate}`,
+        endDate: `${request.query.endDate}`,
+      };
+    }
+
     try {
       const harvest = await Harvest.findAll({
-        where: {
-          id: request.query.id,
-          [Op.or]: [
-            {
-              [Op.and]: [
-                {
-                  startDate: request.query.startDate,
-                },
-                {
-                  endDate: request.query.endDate,
-                },
-              ],
-            },
-          ],
-        },
+        ...filter,
       });
 
       if (!harvest) {
