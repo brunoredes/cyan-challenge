@@ -1,5 +1,5 @@
 import { Model, DataTypes, UUIDV4, DATE } from 'sequelize';
-import { isBefore } from 'date-fns';
+// import { isBefore } from 'date-fns';
 
 class Harvest extends Model {
   static init(sequelize) {
@@ -14,13 +14,12 @@ class Harvest extends Model {
           },
           allowNull: false,
         },
-        start_date: {
+        startDate: {
           type: DATE,
-          get() {
-            return isBefore(this.date, new Date());
-          },
         },
-        end_date: DATE,
+        endDate: {
+          type: DATE,
+        },
         mills_id: {
           type: DataTypes.UUID,
           defaultValue: UUIDV4,
