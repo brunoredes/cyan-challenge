@@ -28,7 +28,7 @@ class MillController {
       },
     });
 
-    if (!mill) {
+    if (!mill || mill === ('' || undefined)) {
       return response.status(404).json({ error: 'Mill does not exists.' });
     }
 

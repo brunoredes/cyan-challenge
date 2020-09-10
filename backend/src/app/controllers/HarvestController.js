@@ -1,5 +1,5 @@
 import { isBefore, parseISO } from 'date-fns';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import Harvest from '../models/Harvest';
 import Mill from '../models/Mill';
 
@@ -19,7 +19,7 @@ class HarvestController {
     const startDateParsed = parseISO(startDate);
     const endDateParsed = parseISO(endDate);
 
-    if (isBefore(startDateParsed, Number(new Date() - 1))) {
+    if (isBefore(startDateParsed, new Date())) {
       return response.status(400).json({
         error: 'It is not allowed to set start date before the current date',
       });
@@ -60,26 +60,33 @@ class HarvestController {
   }
 
   async filteredHarvest(request, response) {
-    const harvest = await Mill.findAll({
-      where: {
-        [Op.or]: [
-          { startDate: request.query.startDate },
-          { endDate: request.query.endDate },
-          {
-            [Op.and]: [
-              { startDate: request.query.startDate },
-              { endDate: request.query.endDate },
-            ],
-          },
-        ],
-      },
-    });
+    try {
+      const harvest = await Harvest.findAll({
+        where: {
+          id: request.query.id,
+          [Op.or]: [
+            {
+              [Op.and]: [
+                {
+                  startDate: request.query.startDate,
+                },
+                {
+                  endDate: request.query.endDate,
+                },
+              ],
+            },
+          ],
+        },
+      });
 
-    if (!harvest) {
-      return response.status(404).json({ error: 'harvest does not exists.' });
+      if (!harvest) {
+        return response.status(404).json({ error: 'harvest does not exists.' });
+      }
+
+      return response.json(harvest);
+    } catch (err) {
+      return response.status(500).json({ error: err.toString() });
     }
-
-    return response.json(harvest);
   }
 }
 

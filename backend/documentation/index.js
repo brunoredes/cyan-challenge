@@ -41,6 +41,7 @@ export const swaggerDoc = {
         description: 'Create Mills',
         operationId: 'createMills',
         parameters: [],
+        security: [],
         requestBody: {
           content: {
             'application/json': {
@@ -88,6 +89,7 @@ export const swaggerDoc = {
         tags: ['Mill operations'],
         description: 'List of mills',
         operationId: 'ListMills',
+        security: [],
         responses: {
           200: {
             description: 'List of mills',
@@ -114,6 +116,7 @@ export const swaggerDoc = {
         tags: ['Mill operations'],
         description: 'Mill login',
         operationId: 'mill_login',
+        security: [],
         requestBody: {
           content: {
             'application/json': {
@@ -152,6 +155,96 @@ export const swaggerDoc = {
                 example: {
                   message: 'Unauthorized to sign in',
                   internal_code: 401,
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Internal Server Error',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error',
+                },
+                example: {
+                  message: 'Internal Server Error',
+                  internal_code: 500,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    '/mills-filtered': {
+      get: {
+        tags: ['Mill operations'],
+        description: 'Filtered Mill',
+        operationId: 'filtered_mill',
+        security: [],
+        parameters: [
+          {
+            name: 'name',
+            in: 'query',
+            type: 'string',
+            required: true,
+          },
+        ],
+        responses: {
+          200: {
+            description: 'OK',
+          },
+          404: {
+            description: 'Not Found',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error',
+                },
+                example: {
+                  message: 'Mill not found',
+                  internal_code: 404,
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Internal Server Error',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error',
+                },
+                example: {
+                  message: 'Internal Server Error',
+                  internal_code: 500,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    // harvest
+    '/harvest': {
+      get: {
+        tags: ['Harvest operations'],
+        description: 'Get all harvests',
+        operationId: 'get harvest',
+        responses: {
+          200: {
+            description: 'OK',
+          },
+          404: {
+            description: 'Not Found',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error',
+                },
+                example: {
+                  message: 'Harvest not found',
+                  internal_code: 404,
                 },
               },
             },

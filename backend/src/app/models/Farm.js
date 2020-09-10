@@ -14,6 +14,14 @@ class Farm extends Model {
           allowNull: false,
         },
         name: STRING,
+        harvest_id: {
+          type: DataTypes.UUID,
+          defaultValue: UUIDV4,
+          references: {
+            model: 'harvests',
+            key: 'id',
+          },
+        },
       },
       { sequelize }
     );
@@ -22,7 +30,7 @@ class Farm extends Model {
 
   static associate(models) {
     this.hasMany(models.Harvest, {
-      foreignKey: 'id_harvest',
+      foreignKey: 'harvest_id',
       as: 'harvest',
       foreignKeyConstraint: 'FK_HARVEST_FARM',
     });
