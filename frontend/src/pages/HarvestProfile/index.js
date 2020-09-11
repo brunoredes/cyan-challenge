@@ -32,7 +32,7 @@ export default function HarvestProfile() {
   }
 
   function handleAddField() {
-    history.push('/farm/new');
+    history.push('/field/new');
   }
 
   return (
@@ -70,12 +70,8 @@ export default function HarvestProfile() {
             <strong>Nome </strong>
             <p>{farm.name}</p>
 
-            <Link to={'/farm'}>
-            <strong>Acessar fazenda</strong>
-            </Link>
-
             <div>
-              <button data-tip="Adicionar nova fazenda" type="button" onClick={() => handleAddField()}>
+              <button data-tip="Adicionar novo Campo" type="button" onClick={() => handleAddField()}>
                 <FiPlus size={20} color="#A8A8B3" />
               </button>
               <ReactTooltip />

@@ -75,8 +75,6 @@ export default function Profile() {
             <strong>Data de fim: </strong>
             <p>{JSON.stringify(new Date(harvest.endDate)).slice(1, 11)}</p>
 
-            <strong><Link to={`/harvest`}>Acessar Colheita</Link></strong>
-
             <div>
               <button data-tip="Adicionar nova fazenda" type="button" onClick={() => handleAddFarm()}>
                 <FiPlus size={20} color="#A8A8B3" />

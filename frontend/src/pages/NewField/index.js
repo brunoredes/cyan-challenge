@@ -11,7 +11,7 @@ import './styles.css';
 export default function NewField() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
-  const [farmId, setFarmId] = useState(0);
+  const [farmId, setFarmId] = useState('');
 
   const history = useHistory();
 
@@ -29,7 +29,7 @@ export default function NewField() {
         console.log(err)
       },
       {
-        timeout: 30000
+        timeout: 5000
       }
     )
   }, []);
@@ -55,7 +55,7 @@ export default function NewField() {
       history.push('/harvest');
     } catch (err) {
 
-      toast.error('Erro ao cadastrar Fazenda, por favor tente novamente');
+      toast.error('Erro ao cadastrar campo, por favor tente novamente');
     }
   }
 

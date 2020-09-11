@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import Harvest from './pages/Harvest';
 import NewFarm from './pages/NewFarm';
 import HarvestProfile from './pages/HarvestProfile';
+import NewField from './pages/NewField';
 
 export default function Routes() {
   return (
@@ -17,6 +18,7 @@ export default function Routes() {
         <Route path="/harvest/new" component={Harvest} />
         <Route path="/farm/new" component={NewFarm} />
         <Route path="/harvest" component={HarvestProfile} />
+        <Route path="/field/new" component={NewField} />
       </Switch>
     </BrowserRouter>
   );

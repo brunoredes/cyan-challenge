@@ -49,9 +49,9 @@ export default function NewIncident() {
             Digite o nome de sua fazenda
           </p>
 
-          <Link className="back-link" to="/profile">
+          <Link className="back-link" to="/harvest">
             <FiArrowLeft size={16} color="#E02041" />
-            Voltar para home
+            Voltar para colheitas
           </Link>
         </section>
 
