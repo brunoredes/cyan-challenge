@@ -9,16 +9,15 @@ describe('Session endpoint', () => {
     });
 
     const millId = newMill.body.id;
-    console.log(newMill.body);
 
-    const response = await request(server).post('/login').send({
+    const response = await request(server).post('/sessions').send({
       id: millId,
     });
     expect(response.status).toBe(200);
   });
 
   it('should not be able to sign in with a inexistent UUID', async () => {
-    const response = await request(server).post('/login').send({
+    const response = await request(server).post('/sessions').send({
       id: uuidv4(),
     });
 
@@ -26,7 +25,7 @@ describe('Session endpoint', () => {
   });
 
   it('should not be able to sign in with a id not uuid', async () => {
-    const response = await request(server).post('/login').send({
+    const response = await request(server).post('/sessions').send({
       id: 'gdias7agsls',
     });
 
@@ -34,7 +33,7 @@ describe('Session endpoint', () => {
   });
 
   it('should not be able to sign in with a id not uuid', async () => {
-    const response = await request(server).post('/login').send({
+    const response = await request(server).post('/sessions').send({
       id: '15684133483',
     });
 

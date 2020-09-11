@@ -26,14 +26,14 @@ class FieldController {
       });
 
       if (coordinateExists) {
-        return response.status(400).json({ error: 'ta fudido' });
+        return response.status(400).json({ error: 'Coords already exists' });
       }
     }
 
     const field = await Field.create({
       id,
       coordinates: coords,
-      farmId,
+      farm_id: farmId,
     });
 
     return response.status(201).json(field);

@@ -41,19 +41,19 @@ class HarvestController {
   }
 
   async index(request, response) {
-    const { page = 1 } = request.query;
+    // const { page = 1 } = request.query;
 
-    const count = await Harvest.count({
-      where: { mills_id: request.headers.authorization },
-    });
+    // const count = await Harvest.count({
+    //   where: { mills_id: request.headers.authorization },
+    // });
 
     const harvest = await Harvest.findAll({
       where: { mills_id: request.headers.authorization },
-      offset: (page - 1) * 5,
-      limit: 5,
+      // offset: (page - 1) * 5,
+      // limit: 5,
     });
 
-    response.header('X-Total-Count', count);
+    // response.header('X-Total-Count', count);
 
     return response.json(harvest);
   }

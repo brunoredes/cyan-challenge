@@ -16,7 +16,7 @@ class Field extends Model {
         coordinates: {
           type: GEOMETRY('POINT', 4326),
         },
-        farmId: {
+        farm_id: {
           type: DataTypes.UUID,
           defaultValue: UUIDV4,
           references: {
@@ -32,7 +32,7 @@ class Field extends Model {
 
   static associate(models) {
     this.hasMany(models.Farm, {
-      foreignKey: 'id_farm',
+      foreignKey: 'farm_id',
       as: 'farm',
       foreignKeyConstraint: 'FK_FARM_FIELD',
     });
