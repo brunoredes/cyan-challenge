@@ -47,3 +47,17 @@ $ cd backend
 $ npm i
 $ npm start
 ```
+
+
+### How to test:
+- with Yarn
+```bash
+$ cd backend
+$ yarn test
+```
+
+- with NPM
+```bash
+$ cd backend
+$ npm test
+```
