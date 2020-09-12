@@ -64,7 +64,13 @@ $ npm test
 
 
 ### After Install
-Run the following command: docker run --name cyan-mills -e POSTGRES_PASSWORD=docker POSTGRES_DB=cyan-challenge -p 5432:5432 -d postgis/postgis
+Run the following command: 
+
+```bash
+docker run --name cyan-mills -e POSTGRES_PASSWORD=docker POSTGRES_DB=cyan-challenge -p 5432:5432 -d postgis/postgis
+```
+
+
 or
 
 
