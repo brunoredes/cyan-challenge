@@ -47,3 +47,38 @@ $ cd backend
 $ npm i
 $ npm start
 ```
+
+
+### How to test:
+- with Yarn
+```bash
+$ cd backend
+$ yarn test
+```
+
+- with NPM
+```bash
+$ cd backend
+$ npm test
+```
+
+
+### After Install
+Run the following command: 
+
+```bash
+docker run --name cyan-mills -e POSTGRES_PASSWORD=docker POSTGRES_DB=cyan-challenge -p 5432:5432 -d postgis/postgis
+```
+
+
+or
+
+
+```bash
+$ yarn manual
+```
+After docker run, please, create the migrations with the following command:
+
+```bash
+$ yarn migrate
+```
