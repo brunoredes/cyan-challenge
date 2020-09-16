@@ -15,8 +15,6 @@ export default function NewField() {
 
   const history = useHistory();
 
-  const millId = localStorage.getItem('millId');
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -44,17 +42,12 @@ export default function NewField() {
     };
 
     try {
-      const response = await api.post('/farm', data, {
-        headers: {
-          Authorization: millId,
-        },
-      });
+      const response = await api.post('/field', data);
+      localStorage.setItem('farmId', response.data.farm_id);
 
-      localStorage.setItem('harvesttId', response.data.harvest_id);
-
-      history.push('/harvest');
+      history.push('/field');
     } catch (err) {
-
+      console.log(err);
       toast.error('Erro ao cadastrar campo, por favor tente novamente');
     }
   }
