@@ -2,37 +2,51 @@ import Mill from '../models/Mill';
 
 class MillController {
   async createMill(request, response) {
-    const millExists = await Mill.findOne({
-      where: { name: request.body.name },
-    });
+    try {
+      const millExists = await Mill.findOne({
+        where: { name: request.body.name },
+      });
 
-    if (millExists) {
-      return response.status(400).json({ error: 'Mill already exists' });
+      if (millExists) {
+        return response.status(400).json({ error: 'Mill already exists' });
+      }
+
+      const { id, name } = await Mill.create(request.body);
+
+      return response.status(201).json({ id, name });
+    } catch (err) {
+      console.error(err);
+      return response.status(500).json({ error: 'Internal Server Error' });
     }
-
-    const { id, name } = await Mill.create(request.body);
-
-    return response.status(201).json({ id, name });
   }
 
   async showMill(request, response) {
-    const mill = await Mill.findAll();
+    try {
+      const mill = await Mill.findAll();
 
-    return response.json(mill);
+      return response.json(mill);
+    } catch (err) {
+      console.error(err);
+      return response.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 
   async showFilteredMillByName(request, response) {
-    const mill = await Mill.findOne({
-      where: {
-        name: request.query.name,
-      },
-    });
+    try {
+      const mill = await Mill.findOne({
+        where: {
+          name: request.query.name,
+        },
+      });
 
-    if (!mill || mill === ('' || undefined)) {
-      return response.status(404).json({ error: 'Mill does not exists.' });
+      if (!mill || mill === ('' || undefined)) {
+        return response.status(404).json({ error: 'Mill does not exists.' });
+      }
+
+      return response.json(mill);
+    } catch (err) {
+      return response.status(500).json({ error: 'Internal Server Error' });
     }
-
-    return response.json(mill);
   }
 }
 

@@ -1,20 +1,9 @@
 /* eslint-disable no-console */
-import { createServer } from 'spdy';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { createServer } from 'http';
 import server from './app';
 import setupWebSocket from './websocket';
 
-const options = {
-  key: readFileSync(
-    join(__dirname, '..', 'infra', 'key', 'localhost-privkey.pem')
-  ),
-  cert: readFileSync(
-    join(__dirname, '..', 'infra', 'certificate', 'localhost-cert.pem')
-  ),
-};
-
-const serverSec = createServer(options, server);
+const serverSec = createServer(server);
 
 serverSec.listen(process.env.SERVER_PORT, () => {
   if (process.env.NODE_ENV === 'development') {

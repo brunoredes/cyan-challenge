@@ -1,4 +1,4 @@
-import { Model, GEOMETRY, DataTypes, UUIDV4 } from 'sequelize';
+import { Model, DataTypes, UUIDV4 } from 'sequelize';
 
 class Field extends Model {
   static init(sequelize) {
@@ -14,7 +14,7 @@ class Field extends Model {
           allowNull: false,
         },
         coordinates: {
-          type: GEOMETRY('POINT', 4326),
+          type: DataTypes.GEOMETRY('POINT', 4326),
         },
         farm_id: {
           type: DataTypes.UUID,
@@ -27,6 +27,18 @@ class Field extends Model {
       },
       { sequelize }
     );
+
+    this.addHook('beforeSave', (instance) => {
+      if (instance.geometry && !instance.geometry.crs) {
+        instance.geometry.crs = {
+          type: 'name',
+          properties: {
+            name: 'EPSG:4326',
+          },
+        };
+      }
+    });
+
     return this;
   }
 
